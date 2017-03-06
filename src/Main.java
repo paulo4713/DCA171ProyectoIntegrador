@@ -11,6 +11,10 @@ public class Main extends PApplet {
 	public void setup() {
 		log = new Logica(this);
 	}
+	
+	public void settings(){
+		size(500,500);
+	}
 
 	public void draw() {
 
