@@ -32,7 +32,12 @@ public class Persona implements Comparable<Persona> {
 
 	public void pintar(PApplet app) {
 		app.fill(r, g, b);
-		app.text(nombre + "	" + apellido + "	" + id + "	" + edad + "	" + peso, x, y);
+		app.text(nombre, x, y);
+		app.text(apellido, x + 70, y);
+		app.text(id, x +150, y);
+		app.text(edad, x +250, y);
+		app.text(peso, x +300, y);
+		
 	}
 
 	@Override

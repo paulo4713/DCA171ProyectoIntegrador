@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 public class Logica {
 	PApplet app;
@@ -16,6 +17,7 @@ public class Logica {
 	private TreeSet<Persona> treePersonasEdad;
 	private HashSet<Persona> hashPersonas;
 	private int peso, edad, r, g, b;
+	private int x = 50, y = 30;
 	private int pantalla;
 
 	public Logica(PApplet app) {
@@ -44,7 +46,11 @@ public class Logica {
 
 	public void ejecutar() {
 		app.fill(255);
-		app.text("Nombre - Apellido - ID - Edad - Peso", 50, 30);
+		app.text("Nombre", x, y);
+		app.text("Apellido", x + 70, y);
+		app.text("Id", x + 150, y);
+		app.text("Edad", x + 250, y);
+		app.text("Peso", x + 300, y);
 		pintarPersonas();
 	}
 
@@ -56,6 +62,11 @@ public class Logica {
 					personas.get(i).pintar(app);
 				}
 			}
+			
+			app.fill(255);
+			app.textAlign(PConstants.CENTER);
+			app.text("PRESENTACIÓN ORIGINAL", app.width/2, 400);
+			app.textAlign(PConstants.LEFT);
 			break;
 
 		case 1:
@@ -69,12 +80,22 @@ public class Logica {
 					i++;
 				}
 			}
+			app.fill(255);
+			app.textAlign(PConstants.CENTER);
+			app.text("POR APELLIDO, CON REPETIDOS", app.width/2, 400);
+			app.textAlign(PConstants.LEFT);
 			break;
 
 		case 2:
+
 			for (int i = 0; i < personas.size(); i++) {
+				personas.get(i).setY(50 + (i * 25));
 				personas.get(i).pintar(app);
 			}
+			app.fill(255);
+			app.textAlign(PConstants.CENTER);
+			app.text("POR PESO, SIN REPETIDOS", app.width/2, 400);
+			app.textAlign(PConstants.LEFT);
 			break;
 
 		case 3:
@@ -88,6 +109,10 @@ public class Logica {
 					i2++;
 				}
 			}
+			app.fill(255);
+			app.textAlign(PConstants.CENTER);
+			app.text("POR EDAD, CON REPETIDOS", app.width/2, 400);
+			app.textAlign(PConstants.LEFT);
 			break;
 
 		case 4:
@@ -101,6 +126,10 @@ public class Logica {
 					i2++;
 				}
 			}
+			app.fill(255);
+			app.textAlign(PConstants.CENTER);
+			app.text("POR IGUALDAD BASE (SUMA DE COLORES), SIN REPETIDOS", app.width/2, 400);
+			app.textAlign(PConstants.LEFT);
 			break;
 		}
 

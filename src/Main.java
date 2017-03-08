@@ -14,21 +14,15 @@ public class Main extends PApplet {
 	}
 
 	public void settings() {
-		size(500, 500);
+		size(410, 500);
 	}
 
 	public void draw() {
 		background(0);
 		log.ejecutar();
-
 	}
 
 	public void keyPressed() {
 		log.teclado();
-		
-	}
-
-	public void mousePressed() {
-		System.out.println("hola");
 	}
 }
