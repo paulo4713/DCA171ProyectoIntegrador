@@ -5,8 +5,17 @@ public class Persona implements Comparable<Persona> {
 	private int peso, edad;
 	private int r, g, b;
 	private int x, y;
+	private int sumaColor;
 
-	public Persona(String nombre, String apellido, String id, int peso, int edad, int r, int g, int b, int x,
+	public int getSumaColor() {
+		return sumaColor;
+	}
+
+	public void setSumaColor(int sumaColor) {
+		this.sumaColor = sumaColor;
+	}
+
+	public Persona(String nombre, String apellido, String id, int edad, int peso, int r, int g, int b, int x,
 			int y) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -18,11 +27,12 @@ public class Persona implements Comparable<Persona> {
 		this.b = b;
 		this.x = x;
 		this.y = y;
+		sumaColor = r+g+b;
 	}
 
 	public void pintar(PApplet app) {
 		app.fill(r, g, b);
-		app.text(nombre + "	" + apellido + "	" + id + "	" + peso + "	" + edad, x, y);
+		app.text(nombre + "	" + apellido + "	" + id + "	" + edad + "	" + peso, x, y);
 	}
 
 	@Override
@@ -36,7 +46,13 @@ public class Persona implements Comparable<Persona> {
 	@Override
 	public boolean equals(Object obj) {
 		Persona p = (Persona) obj;
-		return this.apellido.equals(p.getApellido());
+		return this.sumaColor == p.getSumaColor();
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return this.sumaColor;
 	}
 
 	public String getNombre() {

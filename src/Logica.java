@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -13,6 +14,7 @@ public class Logica {
 	private ArrayList<Persona> personas;
 	private TreeSet<Persona> treePersonas;
 	private TreeSet<Persona> treePersonasEdad;
+	private HashSet<Persona> hashPersonas;
 	private int peso, edad, r, g, b;
 	private int pantalla;
 
@@ -21,6 +23,7 @@ public class Logica {
 
 		personas = new ArrayList<Persona>();
 		treePersonas = new TreeSet<Persona>();
+		hashPersonas = new HashSet<Persona>();
 		treePersonasEdad = new TreeSet<Persona>(new ComparadorEdad());
 		cargarTxts();
 
@@ -32,16 +35,16 @@ public class Logica {
 			r = Integer.parseInt(rgb[0]);
 			g = Integer.parseInt(rgb[1]);
 			b = Integer.parseInt(rgb[2]);
-			peso = Integer.parseInt(idPesoEdad[1]);
-			edad = Integer.parseInt(idPesoEdad[2]);
+			edad = Integer.parseInt(idPesoEdad[1]);
+			peso = Integer.parseInt(idPesoEdad[2]);
 
-			personas.add(new Persona(nomApe[0], nomApe[1], idPesoEdad[0], peso, edad, r, g, b, 50, 50 + (i * 25)));
+			personas.add(new Persona(nomApe[0], nomApe[1], idPesoEdad[0], edad, peso, r, g, b, 50, 50 + (i * 25)));
 		}
 	}
 
 	public void ejecutar() {
 		app.fill(255);
-		app.text("Nombre - Apellido - ID - Peso - Edad", 50, 30);
+		app.text("Nombre - Apellido - ID - Edad - Peso", 50, 30);
 		pintarPersonas();
 	}
 
@@ -67,18 +70,29 @@ public class Logica {
 				}
 			}
 			break;
+
 		case 2:
-			if (!personas.isEmpty()) {
-				for (int i = 0; i < personas.size(); i++) {
-					personas.get(i).pintar(app);
-				}
+			for (int i = 0; i < personas.size(); i++) {
+				personas.get(i).pintar(app);
 			}
 			break;
 
 		case 3:
 			if (!treePersonasEdad.isEmpty()) {
-				System.out.println("pintando personas por peso");
 				Iterator<Persona> it2 = treePersonasEdad.iterator();
+				int i2 = 0;
+				while (it2.hasNext()) {
+					Persona temp = it2.next();
+					temp.setY(50 + (i2 * 25));
+					temp.pintar(app);
+					i2++;
+				}
+			}
+			break;
+
+		case 4:
+			if (!hashPersonas.isEmpty()) {
+				Iterator<Persona> it2 = hashPersonas.iterator();
 				int i2 = 0;
 				while (it2.hasNext()) {
 					Persona temp = it2.next();
@@ -102,25 +116,22 @@ public class Logica {
 
 		if (app.keyCode == '1') {
 			pantalla = 1;
-			if (!personas.isEmpty()) {
-				treePersonas.addAll(personas);
-			}
-			System.out.println("Objetos en el Array: " + personas.size());
-			System.out.println("Objetos en el Tree: " + treePersonas.size());
+			treePersonas.addAll(personas);
 		}
 
 		if (app.key == '2') {
 			pantalla = 2;
-			if (!personas.isEmpty()) {
-				Collections.sort(personas, new ComparadorPeso());
-			}
+			Collections.sort(personas, new ComparadorPeso());
 		}
 
 		if (app.key == '3') {
 			pantalla = 3;
-			if (!personas.isEmpty()) {
-				treePersonasEdad.addAll(personas);
-			}
+			treePersonasEdad.addAll(personas);
+		}
+
+		if (app.key == '4') {
+			pantalla = 4;
+			hashPersonas.addAll(personas);
 		}
 
 	}
