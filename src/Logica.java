@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -11,13 +12,16 @@ public class Logica {
 	private String txtCol[];
 	private ArrayList<Persona> personas;
 	private TreeSet<Persona> treePersonas;
-	private int r, g, b;
+	private TreeSet<Persona> treePersonasEdad;
+	private int peso, edad, r, g, b;
+	private int pantalla;
 
 	public Logica(PApplet app) {
 		this.app = app;
 
 		personas = new ArrayList<Persona>();
 		treePersonas = new TreeSet<Persona>();
+		treePersonasEdad = new TreeSet<Persona>(new ComparadorEdad());
 		cargarTxts();
 
 		for (int i = 0; i < txtNom.length; i++) {
@@ -28,34 +32,64 @@ public class Logica {
 			r = Integer.parseInt(rgb[0]);
 			g = Integer.parseInt(rgb[1]);
 			b = Integer.parseInt(rgb[2]);
+			peso = Integer.parseInt(idPesoEdad[1]);
+			edad = Integer.parseInt(idPesoEdad[2]);
 
-			treePersonas.add(new Persona(nomApe[0], nomApe[1], idPesoEdad[0], idPesoEdad[1], idPesoEdad[2], r, g, b, 50,
-					50 + (i * 25)));
+			personas.add(new Persona(nomApe[0], nomApe[1], idPesoEdad[0], peso, edad, r, g, b, 50, 50 + (i * 25)));
 		}
 	}
 
 	public void ejecutar() {
+		app.fill(255);
+		app.text("Nombre - Apellido - ID - Peso - Edad", 50, 30);
 		pintarPersonas();
 	}
 
 	public void pintarPersonas() {
-
-		if (!personas.isEmpty()) {
-			for (int i = 0; i < personas.size(); i++) {
-				personas.get(i).pintar(app);
+		switch (pantalla) {
+		case 0:
+			if (!personas.isEmpty()) {
+				for (int i = 0; i < personas.size(); i++) {
+					personas.get(i).pintar(app);
+				}
 			}
+			break;
+
+		case 1:
+			if (!treePersonas.isEmpty()) {
+				Iterator<Persona> it = treePersonas.iterator();
+				int i = 0;
+				while (it.hasNext()) {
+					Persona temp = it.next();
+					temp.setY(50 + (i * 25));
+					temp.pintar(app);
+					i++;
+				}
+			}
+			break;
+		case 2:
+			if (!personas.isEmpty()) {
+				for (int i = 0; i < personas.size(); i++) {
+					personas.get(i).pintar(app);
+				}
+			}
+			break;
+
+		case 3:
+			if (!treePersonasEdad.isEmpty()) {
+				System.out.println("pintando personas por peso");
+				Iterator<Persona> it2 = treePersonasEdad.iterator();
+				int i2 = 0;
+				while (it2.hasNext()) {
+					Persona temp = it2.next();
+					temp.setY(50 + (i2 * 25));
+					temp.pintar(app);
+					i2++;
+				}
+			}
+			break;
 		}
 
-		if (!treePersonas.isEmpty()) {
-			Iterator<Persona> it2 = treePersonas.iterator();
-			int i2 = 0;
-			while (it2.hasNext()) {
-				Persona temp = it2.next();
-				temp.setY(50 + (i2 * 25));
-				temp.pintar(app);
-				i2++;
-			}
-		}
 	}
 
 	public void cargarTxts() {
@@ -67,22 +101,27 @@ public class Logica {
 	public void teclado() {
 
 		if (app.keyCode == '1') {
+			pantalla = 1;
 			if (!personas.isEmpty()) {
 				treePersonas.addAll(personas);
-				personas.removeAll(treePersonas);
 			}
 			System.out.println("Objetos en el Array: " + personas.size());
 			System.out.println("Objetos en el Tree: " + treePersonas.size());
 		}
 
 		if (app.key == '2') {
-			if (!treePersonas.isEmpty()) {
-				personas.addAll(treePersonas);
-				treePersonas.removeAll(personas);
+			pantalla = 2;
+			if (!personas.isEmpty()) {
+				Collections.sort(personas, new ComparadorPeso());
 			}
-
-			System.out.println("Objetos en el Array: " + personas.size());
-			System.out.println("Objetos en el Tree: " + treePersonas.size());
 		}
+
+		if (app.key == '3') {
+			pantalla = 3;
+			if (!personas.isEmpty()) {
+				treePersonasEdad.addAll(personas);
+			}
+		}
+
 	}
 }

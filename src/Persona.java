@@ -1,11 +1,12 @@
 import processing.core.PApplet;
 
 public class Persona implements Comparable<Persona> {
-	private String nombre, apellido, id, peso, edad;
+	private String nombre, apellido, id;
+	private int peso, edad;
 	private int r, g, b;
 	private int x, y;
 
-	public Persona(String nombre, String apellido, String id, String peso, String edad, int r, int g, int b, int x,
+	public Persona(String nombre, String apellido, String id, int peso, int edad, int r, int g, int b, int x,
 			int y) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -21,7 +22,7 @@ public class Persona implements Comparable<Persona> {
 
 	public void pintar(PApplet app) {
 		app.fill(r, g, b);
-		app.text(nombre + " " + apellido + " " + id + " " + peso + " " + edad, x, y);
+		app.text(nombre + "	" + apellido + "	" + id + "	" + peso + "	" + edad, x, y);
 	}
 
 	@Override
@@ -62,19 +63,19 @@ public class Persona implements Comparable<Persona> {
 		this.id = id;
 	}
 
-	public String getPeso() {
+	public int getPeso() {
 		return peso;
 	}
 
-	public void setPeso(String peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 
-	public String getEdad() {
+	public int getEdad() {
 		return edad;
 	}
 
-	public void setEdad(String edad) {
+	public void setEdad(int edad) {
 		this.edad = edad;
 	}
 
