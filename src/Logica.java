@@ -65,7 +65,7 @@ public class Logica {
 			
 			app.fill(255);
 			app.textAlign(PConstants.CENTER);
-			app.text("PRESENTACIÓN ORIGINAL", app.width/2, 400);
+			app.text("PRESENTACION ORIGINAL", app.width/2, 400);
 			app.textAlign(PConstants.LEFT);
 			break;
 
@@ -94,7 +94,7 @@ public class Logica {
 			}
 			app.fill(255);
 			app.textAlign(PConstants.CENTER);
-			app.text("POR PESO, SIN REPETIDOS", app.width/2, 400);
+			app.text("POR PESO, CON REPETIDOS", app.width/2, 400);
 			app.textAlign(PConstants.LEFT);
 			break;
 
@@ -111,7 +111,7 @@ public class Logica {
 			}
 			app.fill(255);
 			app.textAlign(PConstants.CENTER);
-			app.text("POR EDAD, CON REPETIDOS", app.width/2, 400);
+			app.text("POR EDAD, SIN REPETIDOS", app.width/2, 400);
 			app.textAlign(PConstants.LEFT);
 			break;
 
